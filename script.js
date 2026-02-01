@@ -1,40 +1,35 @@
-document.getElementById("refForm").addEventListener("submit", async function(e) {
+document.getElementById("refForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbw5_6m_xv0cHElF095m0uUQ_UNSNITF2SvEoKGY1D053IZUHplp2Peiigkvds000AA/exec";
+    // Ваш новый URL развертывания GAS
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxyij8JMSc5snAxzn28KNybJu-xZtZvvKAvxJp-3vkug3aoren32xNprsbpPH-wl2o/exec";
 
-    // 1. Собираем данные в объект
-    const formData = {
-        fio: document.getElementById("fio").value,
-        username: document.getElementById("username").value
-    };
+    // 1. Формируем тело запроса в формате "ключ=значение"
+    const fioValue = encodeURIComponent(document.getElementById("fio").value);
+    const usernameValue = encodeURIComponent(document.getElementById("username").value);
+    const postBody = `fio=${fioValue}&username=${usernameValue}`;
 
-    try {
-        // 2. Отправляем как JSON с правильным Content-Type
-        const response = await fetch(GAS_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-
-        // 3. Пытаемся прочитать ответ
-        const result = await response.json();
-        console.log("Ответ от GAS:", result);
-        
-        // 4. Делаем редирект только если успех
-        if (result.result === "success") {
-            window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
-        } else {
-            alert("Ошибка при записи в таблицу: " + result.message);
-        }
-
-    } catch (error) {
-        console.error("Ошибка сети или CORS:", error);
-        alert("Не удалось отправить данные. Проверьте консоль.");
-    }
+    // 2. Отправляем POST запрос КАК ТЕКСТ
+    fetch(GAS_URL, {
+        method: 'POST',
+        // ВАЖНО: НЕ указываем заголовок 'Content-Type' явно!
+        // Браузер сам поставит нужный, и запрос станет "простым".
+        body: postBody
+    })
+    .then(response => {
+        // Если мы здесь, запрос не был заблокирован CORS!
+        console.log("Запрос успешно отправлен!");
+        // Незамедлительно делаем редирект пользователя
+        window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
+    })
+    .catch(error => {
+        console.error("Ошибка сети:", error);
+        // Даже в случае ошибки сети сделаем редирект
+        alert("Связь с сервером может быть неустойчивой, но мы перенаправляем вас дальше.");
+        window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
+    });
 });
+
 
 
 
