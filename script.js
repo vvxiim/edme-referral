@@ -1,30 +1,29 @@
-document.getElementById("refForm").addEventListener("submit", async function(e) {
+document.getElementById("refForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const gasUrl = "https://script.google.com/macros/s/AKfycbxnKA6v9Ayt2IK95EAFZGq6_fkWTGg3IsMm4r9njOckFcUMU3j92WZK3UoVk63lr5U/exec";
-    
-    const data = {
-        fio: document.getElementById("fio").value,
-        username: document.getElementById("username").value
-    };
+    const formData = new URLSearchParams(); // Используем URLSearchParams
+    formData.append("fio", document.getElementById("fio").value);
+    formData.append("username", document.getElementById("username").value);
 
-    try {
-        const response = await fetch(gasUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
-        
-        // Всегда делаем редирект
+    // --- ВСТАВЬТЕ СЮДА НОВЫЙ URL ИЗ ПУНКТА 7 ВЫШЕ ---
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbwmtDOuFQXJ9zsD30p-ckjDZ4R90HGOW1TZ_jJbzwkoAlrUzdSMB0WXOo-9SWzEgOg/exec";
+
+    fetch(GAS_URL, {
+        method: "POST",
+        body: formData // GAS автоматически распарсит URLSearchParams
+    })
+    .then(response => response.text()) // Пробуем получить ответ как текст
+    .then(result => {
+        console.log("Успех! Ответ от GAS:", result);
+        // Только после успешного ответа делаем редирект
         window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
-        
-    } catch (error) {
-        // Все равно редиректим
-        window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
-    }
+    })
+    .catch((error) => {
+        console.error("Ошибка при отправке:", error);
+        alert("Произошла ошибка при отправке данных. Проверьте консоль (F12).");
+    });
 });
+
 
 
 
