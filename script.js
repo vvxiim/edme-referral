@@ -7,7 +7,7 @@ document.getElementById("refForm").addEventListener("submit", async function(e) 
     formData.append("username", document.getElementById("username").value);
 
     // --- ВАШ НОВЫЙ URL РАЗВЕРТЫВАНИЯ ---
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbwmtDOuFQXJ9zsD30p-ckjDZ4R90HGOW1TZ_jJbzwkoAlrUzdSMB0WXOo-9SWzEgOg/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbz7dciYRkyxF8FD0zqXDIT4sTLXcfL2v6AsCZjHVThMtonoC-MTXWI_GllF7BVyUfI/exec";
 
     // Отправляем запрос в режиме 'no-cors'
     // Критически важно: не используйте здесь .then() или await для response!
@@ -21,6 +21,7 @@ document.getElementById("refForm").addEventListener("submit", async function(e) 
     console.log("Данные отправлены, выполняется редирект...");
     window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
 });
+
 
 
 
