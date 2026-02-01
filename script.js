@@ -1,4 +1,4 @@
-document.getElementById("refForm").addEventListener("submit", async function(e) {
+document.getElementById("refForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const data = {
@@ -6,9 +6,9 @@ document.getElementById("refForm").addEventListener("submit", async function(e) 
         username: document.getElementById("username").value
     };
 
-    // Отправка в Google Script
     const scriptURL = "https://script.google.com/macros/s/AKfycbwaIJeF2gLeN_ElY2oDpk796EE6SkvBwHdKDZNiPf2TDtvqdHUo4pSEoyapcmbkQOg/exec";
 
+    // Отправляем данные как form-urlencoded
     fetch(scriptURL, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -16,7 +16,8 @@ document.getElementById("refForm").addEventListener("submit", async function(e) 
     })
     .then(response => response.text())
     .then(result => {
-        console.log("Данные отправлены:", result);
+        console.log("Данные успешно отправлены:", result);
+        // Перенаправление только после успешной отправки
         window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
     })
     .catch(error => {
@@ -24,3 +25,4 @@ document.getElementById("refForm").addEventListener("submit", async function(e) 
         alert("Произошла ошибка при отправке. Попробуйте ещё раз.");
     });
 });
+
