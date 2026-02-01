@@ -1,7 +1,7 @@
 document.getElementById("refForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbxdLNZKOYusRT53fGMXWQxhKQ99UzfKO005ywrPHEoz6FYs-TXxmP6SftQvrBlchj0/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbw5_6m_xv0cHElF095m0uUQ_UNSNITF2SvEoKGY1D053IZUHplp2Peiigkvds000AA/exec";
 
     // 1. Собираем данные в объект
     const formData = {
@@ -35,6 +35,7 @@ document.getElementById("refForm").addEventListener("submit", async function(e) 
         alert("Не удалось отправить данные. Проверьте консоль.");
     }
 });
+
 
 
 
