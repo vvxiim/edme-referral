@@ -1,32 +1,51 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EDME Referral</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Форма отправки</title>
+<style>
+  body { font-family: Arial; padding: 2rem; }
+  form { display: flex; flex-direction: column; width: 300px; gap: 10px; }
+  input, button { padding: 8px; font-size: 1rem; }
+</style>
 </head>
-
 <body>
 
-<div class="container">
-    <img src="logo.png" class="logo" alt="EDME">
-    <h2>Регистрация участника</h2>
-    <p class="subtitle">Введите ваши данные для продолжения</p>
+<h2>Форма отправки</h2>
 
-    <form id="refForm">
-        <label>ФИО</label>
-        <input type="text" id="fio" placeholder="Введите ваше ФИО" required>
+<form id="refForm">
+  <input type="text" id="fio" placeholder="ФИО" required>
+  <input type="text" id="username" placeholder="Username" required>
+  <button type="submit">Отправить</button>
+</form>
 
-        <label>Username (Instagram/Telegram)</label>
-        <input type="text" id="username" placeholder="@example" required>
+<img src="https://via.placeholder.com/150x50?text=Лого" alt="Логотип">
 
-        <button type="submit" class="btn">Продолжить</button>
-    </form>
-</div>
+<script>
+document.getElementById("refForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-<script src="script.js"></script>
+    const data = {
+        fio: document.getElementById("fio").value,
+        username: document.getElementById("username").value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbzv2ZQUIsuanOIdR5O-iUjm0iknaKBpxM8IkZVuZD5d49w9x7VwjE9QSVAebzZQ1ts/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data)
+    })
+    .then(res => res.text())
+    .then(() => {
+        window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Произошла ошибка при отправке. Попробуйте ещё раз.");
+    });
+});
+</script>
 
 </body>
 </html>
