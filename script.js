@@ -1,32 +1,22 @@
 document.getElementById("refForm").addEventListener("submit", function(e) {
     e.preventDefault();
     
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbw-DkzbbXIvnxl3ipsagBAWvT__ZFdRfawo6-b7LWSgc-Nkkh4grao2B889rS0TiaM/exec";
+    // ВСТАВЬТЕ СЮДА НОВЫЙ URL ИЗ GAS (с /exec)
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbw0-I_-na_LbkkmXMUJTJI7zzW4OS0ch9fSAy2leAOoc_vYsUvUOc14bhMZXqgQb8c/exec";
     
-    // 1. Собираем данные
+    // Кодируем данные для URL
     const fio = encodeURIComponent(document.getElementById("fio").value);
     const username = encodeURIComponent(document.getElementById("username").value);
-    const postBody = `fio=${fio}&username=${username}`;
     
-    // 2. Отправляем через navigator.sendBeacon - работает даже при закрытии страницы
-    const beaconSent = navigator.sendBeacon(GAS_URL, postBody);
+    // 1. Отправка данных через создание скрытого изображения
+    const trackingPixel = new Image(1, 1);
+    trackingPixel.src = `${GAS_URL}?fio=${fio}&username=${username}&_=${Date.now()}`;
     
-    if (beaconSent) {
-        console.log("Данные отправлены через sendBeacon");
-    } else {
-        // Fallback: отправляем fetch, но НЕ ждём ответа
-        fetch(GAS_URL, {
-            method: 'POST',
-            body: postBody,
-            mode: 'no-cors', // Важно: не ждём ответа
-            keepalive: true // Отправляет даже при закрытии страницы
-        }).catch(() => {});
-    }
-    
-    // 3. НЕМЕДЛЕННЫЙ редирект (не ждём ничего)
-    console.log("Делаем редирект...");
+    // 2. Сразу делаем редирект пользователя (не ждём ничего)
+    console.log("Данные отправлены, редирект...");
     window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
 });
+
 
 
 
