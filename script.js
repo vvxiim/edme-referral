@@ -6,7 +6,7 @@ document.getElementById("refForm").addEventListener("submit", function(e) {
         username: document.getElementById("username").value
     };
 
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwaIJeF2gLeN_ElY2oDpk796EE6SkvBwHdKDZNiPf2TDtvqdHUo4pSEoyapcmbkQOg/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycby3LeR92M0YjfWMzkSVQWEWQMCBhCg94NVLahNBLDUieOEEoV_5rlYO4Z-BJkAGtac/exec";
 
     // Отправляем данные как form-urlencoded
     fetch(scriptURL, {
@@ -25,4 +25,5 @@ document.getElementById("refForm").addEventListener("submit", function(e) {
         alert("Произошла ошибка при отправке. Попробуйте ещё раз.");
     });
 });
+
 
