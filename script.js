@@ -1,21 +1,31 @@
-document.getElementById("refForm").addEventListener("submit", function (e) {
+document.getElementById("refForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("fio", document.getElementById("fio").value);
-    formData.append("username", document.getElementById("username").value);
+    const gasUrl = "https://script.google.com/macros/s/AKfycbxnKA6v9Ayt2IK95EAFZGq6_fkWTGg3IsMm4r9njOckFcUMU3j92WZK3UoVk63lr5U/exec";
+    
+    const data = {
+        fio: document.getElementById("fio").value,
+        username: document.getElementById("username").value
+    };
 
-    fetch("https://script.google.com/macros/s/AKfycbyUjdBP4ufjpYJ4mKQsX3KQIfJbvKktvBst2yxN1Hml9jo3su_nwc6Lkb97npqVQDk/exec", {
-        method: "POST",
-        body: formData
-    })
-    .then(() => {
+    try {
+        const response = await fetch(gasUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+        
+        // Всегда делаем редирект
         window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
-    })
-    .catch(() => {
-        alert("Ошибка отправки данных");
-    });
+        
+    } catch (error) {
+        // Все равно редиректим
+        window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
+    }
 });
+
 
 
 
