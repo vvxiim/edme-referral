@@ -6,12 +6,21 @@ document.getElementById("refForm").addEventListener("submit", async function(e) 
         username: document.getElementById("username").value
     };
 
-    await fetch("https://script.google.com/macros/s/AKfycbwaIJeF2gLeN_ElY2oDpk796EE6SkvBwHdKDZNiPf2TDtvqdHUo4pSEoyapcmbkQOg/exec", {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-    });
+    // Отправка в Google Script
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwaIJeF2gLeN_ElY2oDpk796EE6SkvBwHdKDZNiPf2TDtvqdHUo4pSEoyapcmbkQOg/exec";
 
-    window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
+    fetch(scriptURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data)
+    })
+    .then(response => response.text())
+    .then(result => {
+        console.log("Данные отправлены:", result);
+        window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
+    })
+    .catch(error => {
+        console.error("Ошибка отправки:", error);
+        alert("Произошла ошибка при отправке. Попробуйте ещё раз.");
+    });
 });
