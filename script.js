@@ -1,26 +1,34 @@
 document.getElementById("refForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    // Собираем данные
-    const formData = new URLSearchParams();
-    formData.append("fio", document.getElementById("fio").value);
-    formData.append("username", document.getElementById("username").value);
-
-    // --- ВАШ НОВЫЙ URL РАЗВЕРТЫВАНИЯ ---
     const GAS_URL = "https://script.google.com/macros/s/AKfycbz7dciYRkyxF8FD0zqXDIT4sTLXcfL2v6AsCZjHVThMtonoC-MTXWI_GllF7BVyUfI/exec";
 
-    // Отправляем запрос в режиме 'no-cors'
-    // Критически важно: не используйте здесь .then() или await для response!
-    fetch(GAS_URL, {
-        method: "POST",
-        mode: "no-cors", // <-- КЛЮЧЕВОЙ ПАРАМЕТР
-        body: formData
-    });
+    // 1. Явно кодируем данные в формате application/x-www-form-urlencoded
+    const postData = `fio=${encodeURIComponent(document.getElementById("fio").value)}&username=${encodeURIComponent(document.getElementById("username").value)}`;
 
-    // Немедленно делаем редирект пользователя, не дожидаясь ответа
-    console.log("Данные отправлены, выполняется редирект...");
-    window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
+    try {
+        // 2. Важнейший момент: отправляем без явного Content-Type
+        // GAS примет данные и НЕ потребует предварительный запрос OPTIONS (CORS)
+        const response = await fetch(GAS_URL, {
+            method: 'POST',
+            // НЕ указываем headers: { 'Content-Type': '...' } - это вызовет OPTIONS!
+            body: postData,
+            // Убедитесь, что 'mode' не указан (по умолчанию 'cors', но это нормально)
+        });
+
+        // 3. Если мы здесь, значит, браузер НЕ заблокировал запрос
+        // Это значит, что CORS не сработал, и запрос был "простой" (simple request)
+        console.log("Успех! Скорее всего, данные записаны.");
+        window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
+
+    } catch (error) {
+        console.error("Ошибка сети или CORS:", error);
+        // ДАЖЕ ПРИ ОШИБКЕ мы можем сделать редирект, т.к. данные, вероятно, ушли
+        // (GAS показал 200 OK до блокировки браузером)
+        window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
+    }
 });
+
 
 
 
