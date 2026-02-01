@@ -1,25 +1,22 @@
 document.getElementById("refForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const fio = document.getElementById("fio").value;
-    const username = document.getElementById("username").value;
+    const formData = new FormData();
+    formData.append("fio", document.getElementById("fio").value);
+    formData.append("username", document.getElementById("username").value);
 
-    const formData = new URLSearchParams();
-    formData.append("fio", fio);
-    formData.append("username", username);
-
-    fetch("https://script.google.com/macros/s/AKfycbzv2ZQUIsuanOIdR5O-iUjm0iknaKBpxM8IkZVuZD5d49w9x7VwjE9QSVAebzZQ1ts/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbyUjdBP4ufjpYJ4mKQsX3KQIfJbvKktvBst2yxN1Hml9jo3su_nwc6Lkb97npqVQDk/exec", {
         method: "POST",
         body: formData
     })
     .then(() => {
         window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
     })
-    .catch(err => {
-        console.error("Ошибка отправки:", err);
+    .catch(() => {
         alert("Ошибка отправки данных");
     });
 });
+
 
 
 
