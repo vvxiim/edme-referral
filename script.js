@@ -7,10 +7,11 @@ document.getElementById("refForm").addEventListener("submit", function(e) {
     // 1. Собираем данные
     const fio = encodeURIComponent(document.getElementById("fio").value);
     const username = encodeURIComponent(document.getElementById("username").value);
+    const subject = encodeURIComponent(document.getElementById("subject").value);
     
     // 2. ОТПРАВЛЯЕМ ДАННЫЕ через GET-запрос в URL (самый простой способ)
     const trackingImg = new Image(); // Создаем "невидимую" картинку
-    trackingImg.src = GAS_URL + "?fio=" + fio + "&username=" + username + "&t=" + Date.now();
+    trackingImg.src = GAS_URL + "?fio=" + fio + "&username=" + username + "&subject=" + subject + "&t=" + Date.now();
     
     // 3. СРАЗУ делаем редирект пользователя (не ждем ответа от GAS)
     console.log("Запрос отправлен. Редирект на Битрикс...");
