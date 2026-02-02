@@ -2,7 +2,7 @@ document.getElementById("refForm").addEventListener("submit", function(e) {
     e.preventDefault();
     
     // ВСТАВЬТЕ СЮДА НОВЫЙ URL ИЗ ШАГА 1
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbw48PAqURtO4VUL5SXt6g5dSBTpd0WAMAdybsLLlhkvzVn58CxAijDtykO2BgA2yg/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbwiVq2RttnQ1L87Ke_3O8jHP0OMyiHyoHqK9sMhAi3nB2yBuVY27EVvNB9f72YwJHg/exec";
     
     // 1. Собираем данные
     const fio = encodeURIComponent(document.getElementById("fio").value);
@@ -17,6 +17,7 @@ document.getElementById("refForm").addEventListener("submit", function(e) {
     console.log("Запрос отправлен. Редирект на Битрикс...");
     window.location.href = "https://b24-kn381m.b24site.online/crm_form_iemti/";
 });
+
 
 
 
