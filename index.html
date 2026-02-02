@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -10,20 +9,20 @@
 <body>
 
 <div class="container">
-    <img src="logo.png" alt="EDME" class="logo" width="150" height="50">
+    <img src="logo.png" alt="EDME" class="logo">
 
     <h2>Регистрация участника</h2>
     <p class="subtitle">Введите ваши данные для продолжения</p>
 
-    <form id="refForm" action="/submit" method="POST">
+    <form id="refForm">
         <label for="fio">ФИО</label>
-        <input type="text" id="fio" name="fio" required pattern="[А-Яа-яЁё\s]{3,}" title="Введите ФИО кириллицей (минимум 3 символа)">
+        <input type="text" id="fio" name="fio" required>
 
         <label for="username">Username (Instagram/Telegram)</label>
-        <input type="text" id="username" name="username" required pattern="[A-Za-z0-9_]{3,}" title="Латинские буквы, цифры или нижнее подчеркивание (минимум 3 символа)">
+        <input type="text" id="username" name="username" required>
 
-        <label for="subject">Предмет репетиторства</label>
-        <select id="subject" name="subject" required>
+        <label for="subject">Предмет для репетиторства</label>
+        <select id="subject" name="subject" class="subject-select" required>
             <option value="" disabled selected>Выберите предмет</option>
             <option value="Математика">Математика</option>
             <option value="Физика">Физика</option>
@@ -39,9 +38,6 @@
             <option value="Младшая школа">Младшая школа</option>
         </select>
 
-        <!-- Пример CSRF-токена (если нужно) -->
-        <!-- <input type="hidden" name="csrf_token" value="токен"> -->
-
         <button type="submit" class="btn">Продолжить</button>
     </form>
 </div>
@@ -49,5 +45,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
-
